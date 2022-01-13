@@ -1,0 +1,35 @@
+import { atom } from 'recoil';
+
+export interface TodoTypes {
+  id: number;
+  text: string;
+  isComplete: boolean;
+}
+
+export const inputState = atom<string>({
+  key: 'inputState',
+  default: '',
+});
+
+export const todoListState = atom<TodoTypes[]>({
+  key: 'todoListState',
+  default: [
+    {
+      id: 1,
+      text: 'TS 공부하기',
+      isComplete: false,
+    },
+
+    {
+      id: 2,
+      text: 'Recoil 공부하기',
+      isComplete: false,
+    },
+
+    {
+      id: 3,
+      text: 'Next 공부하기',
+      isComplete: false,
+    },
+  ],
+});
