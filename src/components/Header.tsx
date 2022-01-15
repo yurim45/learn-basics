@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button } from './Button';
+import styled from 'styled-components';
+import { flexSet } from '../common/styles/variable';
 
 interface HeaderProps {
   user?: {};
@@ -14,10 +16,10 @@ export const Header = ({
   onLogout,
   onCreateAccount,
 }: HeaderProps) => (
-  <header>
+  <HeaderWrap>
     <div className='wrapper'>
       <div>
-        <h1>Acme</h1>
+        <h1 className='title'>Learn</h1>
       </div>
       <div>
         {user ? (
@@ -35,5 +37,27 @@ export const Header = ({
         )}
       </div>
     </div>
-  </header>
+  </HeaderWrap>
 );
+
+const HeaderWrap = styled.header`
+  .wrapper {
+    ${flexSet('space-between', 'center')};
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+
+    .title {
+      margin: 6px 0 6px 10px;
+      display: inline-block;
+      vertical-align: top;
+      font-weight: 900;
+      font-size: 20px;
+      line-height: 1;
+    }
+  }
+
+  button + button {
+    margin-left: 10px;
+  }
+`;
