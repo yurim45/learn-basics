@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from './Button';
 import styled from 'styled-components';
-import { flexSet } from '../common/styles/variable';
+import { flexSet } from '@common/styles/variable';
 
 interface HeaderProps {
   user?: {};

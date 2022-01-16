@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
-import { Header } from '../src/components/Header';
-import Task from '../src/components/Task';
+import { Header } from '@components/Header';
+import Task from '@components/Task';
 
 const Home: NextPage = () => {
   return (

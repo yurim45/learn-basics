@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { todoListState } from '../../src/common/data/todo';
+import { todoListState } from '@common/data/todo';
 import type { NextPage } from 'next';
 import TodoItemCreator from './TodoItemCreator';
 
