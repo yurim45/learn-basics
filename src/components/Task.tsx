@@ -1,59 +1,58 @@
 import React from 'react';
 import styled from 'styled-components';
+import { TodoTypes } from '../common/data/todo';
 
-export type TaskItem = {
-  id: number;
-  title: string;
-  state: string;
-};
 type TaskProps = {
-  task: TaskItem;
+  task: TodoTypes;
   onArchiveTask(id: number): void;
   onPinTask(id: number): void;
+  deleteItem(id: number): void;
 };
 
-const Task = ({ task, onArchiveTask, onPinTask }: TaskProps) => {
+const Task = ({ task, onArchiveTask, onPinTask, deleteItem }: TaskProps) => {
   return (
-    <TodoWrap>
-      <div className={`list-item ${task.state}`}>
+    <TaskWrap>
+      <div className={`list-item ${task?.state}`}>
         <label className='checkbox'>
           <input
             type='checkbox'
             // ARCHIVED 상태에 따라 checked || unchecked
-            defaultChecked={task.state === 'TASK_ARCHIVED'}
+            defaultChecked={task?.state === 'TASK_ARCHIVED'}
             disabled={true}
             name='checked'
           />
           <span
             className='checkbox-custom'
             // onArchiveTask event : (task id 전달)
-            onClick={() => onArchiveTask(task.id)}
+            onClick={() => onArchiveTask(task?.id)}
           />
         </label>
         <div className='title'>
           <input
             type='text'
-            value={task.title}
+            value={task?.text}
             readOnly={true}
             placeholder='Input title'
           />
         </div>
         <div className='actions' onClick={(event) => event.stopPropagation()}>
-          {task.state !== 'TASK_ARCHIVED' && (
+          {task?.state !== 'TASK_ARCHIVED' && (
             // onPinTask event : (task id 전달)
-            <a onClick={() => onPinTask(task.id)}>
-              <span className='icon-star' />
-            </a>
+            // <a onClick={() => onPinTask(task.id)}>
+            <button className='icon-star' onClick={() => deleteItem(task?.id)}>
+              <i className='far fa-trash-alt' />
+            </button>
+            // </a>
           )}
         </div>
       </div>
-    </TodoWrap>
+    </TaskWrap>
   );
 };
 export default Task;
 
-const TodoWrap = styled.div`
-  background-color: #26c6da;
+const TaskWrap = styled.div`
+  background-color: ${({ theme }) => theme.colors.mint};
 
   .list-item {
     font-size: 14px;
@@ -82,14 +81,14 @@ const TodoWrap = styled.div`
     transition: all 200ms ease-in;
     padding-right: 20px;
   }
-  .list-item .actions a {
+  .list-item .actions button {
     display: inline-block;
     vertical-align: top;
     text-align: center;
-    color: #eee;
+    color: ${({ theme }) => theme.colors.mint};
   }
   .list-item .actions a:hover {
-    color: #2cc5d2;
+    color: ${({ theme }) => theme.colors.mint};
   }
   .list-item .actions a:active {
     color: #555;
@@ -101,7 +100,7 @@ const TodoWrap = styled.div`
     text-align: center;
   }
   .list-item.TASK_PINNED .icon-star {
-    color: #2cc5d2;
+    color: ${({ theme }) => theme.colors.mint};
   }
   .list-item.TASK_ARCHIVED input[type='text'] {
     color: #aaa;

@@ -190,7 +190,6 @@ input:-webkit-autofill {
   color: #2cc5d2;
   margin-top: -1px;
   font-family: 'percolate';
-  speak: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -198,7 +197,6 @@ input:-webkit-autofill {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: '\e65e';
 }
 `;
 

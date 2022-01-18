@@ -373,7 +373,6 @@ input:-webkit-autofill {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: '\e65e';
 }
 .input-symbol {
   display: inline-block;

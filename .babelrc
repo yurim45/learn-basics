@@ -21,6 +21,10 @@
             "rootPathPrefix": "@components/"
           },
           {
+            "rootPathSuffix": "./src/common",
+            "rootPathPrefix": "@common/"
+          },
+          {
             "rootPathSuffix": "./src/common/styles",
             "rootPathPrefix": "@styles/"
           }

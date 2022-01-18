@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { Button } from './Button';
 import styled from 'styled-components';
 import { flexSet } from '@common/styles/variable';
@@ -7,7 +8,7 @@ interface HeaderProps {
   user?: {};
   onLogin: () => void;
   onLogout: () => void;
-  onCreateAccount: () => void;
+  onCreateAccount?: () => void;
 }
 
 export const Header = ({
@@ -15,30 +16,36 @@ export const Header = ({
   onLogin,
   onLogout,
   onCreateAccount,
-}: HeaderProps) => (
-  <HeaderWrap>
-    <div className='wrapper'>
-      <div>
-        <h1 className='title'>Learn</h1>
+}: HeaderProps) => {
+  return (
+    <HeaderWrap>
+      <div className='wrapper'>
+        <div>
+          <h1 className='title'>
+            <Link href='/'>
+              <a>Learn</a>
+            </Link>{' '}
+          </h1>
+        </div>
+        <div className='loginBtn'>
+          {user ? (
+            <Button size='small' label='Logout' onClick={onLogout} />
+          ) : (
+            <>
+              <Button size='small' label='Login' onClick={onLogin} />
+              <Button
+                primary
+                size='small'
+                onClick={onCreateAccount}
+                label='Signup'
+              />
+            </>
+          )}
+        </div>
       </div>
-      <div>
-        {user ? (
-          <Button size='small' onClick={onLogout} label='Log out' />
-        ) : (
-          <>
-            <Button size='small' onClick={onLogin} label='Log in' />
-            <Button
-              primary
-              size='small'
-              onClick={onCreateAccount}
-              label='Sign up'
-            />
-          </>
-        )}
-      </div>
-    </div>
-  </HeaderWrap>
-);
+    </HeaderWrap>
+  );
+};
 
 const HeaderWrap = styled.header`
   .wrapper {
@@ -54,10 +61,15 @@ const HeaderWrap = styled.header`
       font-weight: 900;
       font-size: 20px;
       line-height: 1;
+      cursor: pointer;
     }
-  }
 
-  button + button {
-    margin-left: 10px;
+    .loginBtn {
+      ${flexSet('center', 'center')};
+
+      button {
+        margin-left: 10px;
+      }
+    }
   }
 `;
