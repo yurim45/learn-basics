@@ -1,20 +1,25 @@
 import React from 'react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import Task from '@components/Task';
 import { Button } from '@components/Button';
 import { flexSet } from '@common/styles/variable';
-import { todoListState } from '@common/data/todo';
+import { todoListState, TodoTypes } from '@common/data/todo';
 import TodoItemCreator from './TodoItemCreator';
 import styled from 'styled-components';
 
 const Todo: NextPage = (): JSX.Element => {
   const router = useRouter();
-  const todoList = useRecoilValue(todoListState);
+  const [todos, setTodos] = useRecoilState<TodoTypes[]>(todoListState);
+  const todoList = useRecoilValue<TodoTypes[]>(todoListState);
 
-  const deleteItem = () => {
-    alert('삭제기능');
+  const deleteItem = (id: number) => {
+    setTodos(todos.filter((todo: TodoTypes) => todo.id !== id));
+  };
+
+  const onArchiveTask = (): void => {
+    alert('준비중');
   };
 
   return (
@@ -27,11 +32,16 @@ const Todo: NextPage = (): JSX.Element => {
         <Button label={'delete'} />
       </div>
       {todoList.map((todoItem) => (
-        <Task key={todoItem.id} task={todoItem} deleteItem={deleteItem} />
+        <Task
+          key={todoItem.id}
+          task={todoItem}
+          onArchiveTask={onArchiveTask}
+          deleteItem={deleteItem}
+        />
       ))}
       {/* <TodoListStats /> */}
       {/* <TodoListFilters /> */}
-      <TodoItemCreator todoListState={todoListState} />
+      <TodoItemCreator />
     </TodoWrap>
   );
 };

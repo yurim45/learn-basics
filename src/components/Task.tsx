@@ -5,11 +5,10 @@ import { TodoTypes } from '../common/data/todo';
 type TaskProps = {
   task: TodoTypes;
   onArchiveTask(id: number): void;
-  onPinTask(id: number): void;
   deleteItem(id: number): void;
 };
 
-const Task = ({ task, onArchiveTask, onPinTask, deleteItem }: TaskProps) => {
+const Task = ({ task, onArchiveTask, deleteItem }: TaskProps) => {
   return (
     <TaskWrap>
       <div className={`list-item ${task?.state}`}>
