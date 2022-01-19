@@ -19,7 +19,7 @@ export const todoListState = atom<TodoTypes[]>({
       id: 1,
       text: 'TS 공부하기',
       isComplete: false,
-      state: 'TASK_INBOX',
+      state: 'TASK_INBOX', // TASK_ARCHIVED
     },
     {
       id: 2,

@@ -97,6 +97,7 @@ const GlobalStyle = createGlobalStyle`
       word-break: break-word;
       hyphens: auto;
     }
+
 .type-light {
   font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
@@ -110,23 +111,6 @@ const GlobalStyle = createGlobalStyle`
   font-weight: 400;
   font-style: italic;
 }
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  -webkit-tap-highlight-color: transparent;
-}
-html,
-button,
-input,
-textarea,
-select {
-  outline: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-
-
 input[type='text'],
 input[type='email'],
 input[type='password'],
@@ -155,9 +139,7 @@ input[type='password'][disabled],
 textarea[disabled] {
   opacity: 0.5;
 }
-input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px white inset;
-}
+
 .checkbox {
   display: inline-block;
   height: 3rem;
@@ -165,10 +147,10 @@ input:-webkit-autofill {
   vertical-align: middle;
   width: 44px;
 }
-.checkbox input[type='checkbox'] {
+/* .checkbox input[type='checkbox'] {
   font-size: 1em;
   visibility: hidden;
-}
+} */
 .checkbox input[type='checkbox'] + span:before {
   position: absolute;
   top: 50%;
@@ -184,10 +166,10 @@ input:-webkit-autofill {
   display: block;
 }
 .checkbox input[type='checkbox']:checked + span:before {
-  font-size: 16px;
-  line-height: 24px;
-  box-shadow: none;
-  color: #2cc5d2;
+  width: 0.85em;
+  height: 0.85em;
+  background-color: ${({ theme }) => theme.colors.gray};
+  box-shadow: ${({ theme }) => theme.colors.gray} 0 0 0 1px inset;
   margin-top: -1px;
   font-family: 'percolate';
   font-style: normal;

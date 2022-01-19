@@ -18,8 +18,18 @@ const Todo: NextPage = (): JSX.Element => {
     setTodos(todos.filter((todo: TodoTypes) => todo.id !== id));
   };
 
-  const onArchiveTask = (): void => {
-    alert('준비중');
+  const onComplete = (id: number) => {
+    setTodos(
+      todos?.map((todo: TodoTypes) => {
+        return todo.id === id
+          ? {
+              ...todo,
+              isComplete: !todo.isComplete,
+              // state: todo.isComplete ? 'TASK_ARCHIVED' : 'TASK_INBOX',
+            }
+          : todo;
+      })
+    );
   };
 
   return (
@@ -31,11 +41,11 @@ const Todo: NextPage = (): JSX.Element => {
         />
         <Button label={'delete'} />
       </div>
-      {todoList.map((todoItem) => (
+      {todoList?.map((todoItem) => (
         <Task
-          key={todoItem.id}
+          key={todoItem?.id}
           task={todoItem}
-          onArchiveTask={onArchiveTask}
+          onComplete={onComplete}
           deleteItem={deleteItem}
         />
       ))}

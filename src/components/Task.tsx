@@ -4,26 +4,25 @@ import { TodoTypes } from '../common/data/todo';
 
 type TaskProps = {
   task: TodoTypes;
-  onArchiveTask(id: number): void;
+  onComplete(id: number): void;
   deleteItem(id: number): void;
 };
 
-const Task = ({ task, onArchiveTask, deleteItem }: TaskProps) => {
+const Task = ({ task, onComplete, deleteItem }: TaskProps) => {
   return (
     <TaskWrap>
       <div className={`list-item ${task?.state}`}>
         <label className='checkbox'>
           <input
             type='checkbox'
-            // ARCHIVED 상태에 따라 checked || unchecked
-            defaultChecked={task?.state === 'TASK_ARCHIVED'}
-            disabled={true}
+            // ARCHIVED 상태에 따라 checked || unchecked task?.state === 'TASK_ARCHIVED'
+            defaultChecked={task?.isComplete}
+            disabled={task?.isComplete}
             name='checked'
           />
           <span
             className='checkbox-custom'
-            // onArchiveTask event : (task id 전달)
-            onClick={() => onArchiveTask(task?.id)}
+            onClick={() => onComplete(task?.id)}
           />
         </label>
         <div className='title'>
@@ -31,17 +30,22 @@ const Task = ({ task, onArchiveTask, deleteItem }: TaskProps) => {
             type='text'
             value={task?.text}
             readOnly={true}
-            placeholder='Input title'
+            placeholder='Todo를 입력해보세요!'
           />
         </div>
         <div className='actions' onClick={(event) => event.stopPropagation()}>
-          {task?.state !== 'TASK_ARCHIVED' && (
-            // onPinTask event : (task id 전달)
-            // <a onClick={() => onPinTask(task.id)}>
-            <button className='icon-star' onClick={() => deleteItem(task?.id)}>
+          {task?.isComplete ? (
+            <button className='icon-star disabled' disabled>
+              <i className='far fa-check-circle' />
+            </button>
+          ) : (
+            <button
+              className='icon-star'
+              onClick={() => deleteItem(task?.id)}
+              disabled={task?.isComplete}
+            >
               <i className='far fa-trash-alt' />
             </button>
-            // </a>
           )}
         </div>
       </div>
@@ -86,21 +90,21 @@ const TaskWrap = styled.div`
     text-align: center;
     color: ${({ theme }) => theme.colors.mint};
   }
-  .list-item .actions a:hover {
-    color: ${({ theme }) => theme.colors.mint};
+
+  .list-item .actions button:disabled {
+    color: #aaa;
   }
-  .list-item .actions a:active {
-    color: #555;
-  }
+
   .list-item .actions [class^='icon-'] {
     font-size: 16px;
     line-height: 24px;
     line-height: 3rem;
     text-align: center;
   }
-  .list-item.TASK_PINNED .icon-star {
+  .list-item .TASK_PINNED .icon-star {
     color: ${({ theme }) => theme.colors.mint};
   }
+
   .list-item.TASK_ARCHIVED input[type='text'] {
     color: #aaa;
   }
@@ -119,5 +123,10 @@ const TaskWrap = styled.div`
   }
   .list-item.checked .delete-item {
     display: inline-block;
+  }
+
+  &-Complete {
+    background-color: ${({ theme }) => theme.colors.gray};
+    box-shadow: ${({ theme }) => theme.colors.gray} 0 0 0 1px inset;
   }
 `;
